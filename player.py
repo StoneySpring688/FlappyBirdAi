@@ -72,15 +72,15 @@ class Pajaro:
         if config.tuberias: # calcular solo si hay tuberias en pantalla
             # y_tub_arriba
             self.vision[0, 0] = max(0,self.pajaro.center[1] - self.distancia_mas_cercana().ractangulo_arriba.bottom) / 500
-            pygame.draw.line(config.win, self.color, self.pajaro.center, (self.pajaro.center[0], self.distancia_mas_cercana().ractangulo_arriba.bottom))
+            #pygame.draw.line(config.win, self.color, self.pajaro.center, (self.pajaro.center[0], self.distancia_mas_cercana().ractangulo_arriba.bottom))
 
             # y_tub_abajo
             self.vision[0, 2] = max(0,self.distancia_mas_cercana().ractangulo_abajo.top - self.pajaro.center[1]) / 500
-            pygame.draw.line(config.win, self.color, self.pajaro.center,(self.pajaro.center[0], self.distancia_mas_cercana().ractangulo_abajo.top))
+            #pygame.draw.line(config.win, self.color, self.pajaro.center,(self.pajaro.center[0], self.distancia_mas_cercana().ractangulo_abajo.top))
 
             # x_tub
             self.vision[0, 1] = max(0,self.distancia_mas_cercana().x - self.pajaro.center[0]) / 500
-            pygame.draw.line(config.win, self.color, self.pajaro.center, (self.distancia_mas_cercana().x, self.pajaro.center[1]), 1)
+            #pygame.draw.line(config.win, self.color, self.pajaro.center, (self.distancia_mas_cercana().x, self.pajaro.center[1]), 1)
 
     def decidir(self):
         self.decision = self.ai.forward(self.vision)
