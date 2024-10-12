@@ -53,9 +53,11 @@ class Poblacion:
     def next_gen(self):
         self.seleccionar()
         next_gen = []
-        next_gen.append(self.pajaros[0]) # añadir siempre el mejor indivviduo a la siguiente generacion
-        while len(next_gen) < len(self.pajaros)-1:
-            i1,i2 = self.seleccionar_pajaros_torneo(4,False)
+        torneo = True
+        if torneo:
+            next_gen.append(self.pajaros[0])  # añadir siempre el mejor individuo a la siguiente generacion
+        while len(next_gen) < len(self.pajaros):
+            i1,i2 = self.seleccionar_pajaros_torneo(4,torneo)
             p1,p2 = self.cruzar(i1,i2,True)
             self.mutar_individuo(p1,0.05)
             self.mutar_individuo(p2,0.05)
