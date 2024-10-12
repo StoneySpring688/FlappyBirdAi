@@ -2,11 +2,19 @@
 > [!IMPORTANT]
 > ### Dependencias :
 > - pytorch
+>  ```bash
+> pip install torch
+> ```
 > - pygame
-> - random
+>  ```bash
+> pip install pygame
+> ```
 
 > [!NOTE]
-> Para compilar el script se puede usar pyinstaller y ejecutar el siguiente comando en el directorio del programa :
+> Para compilar el script se puede usar pyinstaller en el directorio del programa :
+> ```bash
+> cd /ruta/al/directorio
+> ```
 > ```bash
 > pyinstaller --onefile main.py
 > ```
