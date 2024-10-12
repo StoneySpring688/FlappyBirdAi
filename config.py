@@ -1,5 +1,6 @@
 # SETTINGS DEL PROGRAMA
 import pygame
+
 import componentes
 
 __UMBRAL_DE_SALTO__ = 0.63 # TODO cambiar a 0.73

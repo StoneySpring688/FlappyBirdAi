@@ -1,5 +1,6 @@
 import pygame
 from sys import exit
+
 import config
 import componentes
 import poblacion
