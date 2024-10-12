@@ -5,6 +5,13 @@
 > - pygame
 > - random
 
+> [!NOTE]
+> Para compilar el script se puede usar pyinstaller y ejecutar el siguiente comando en el directorio del programa :
+> ```bash
+> pyinstaller --onefile main.py
+> ```
+
+
 ### Descripción :
 Este proyecto se trata de un entorno al estilo flappy bird, que utiliza un algoritmo genetico para ir evolucionando una IA.
 
