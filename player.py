@@ -7,7 +7,7 @@ import config
 import Ai
 
 class Pajaro:
-    def __init__(self):
+    def __init__(self, next_gen=False, bias=None, pesos=None):
         # Pajaro
         self.x,self.y = 50,200
         self.pajaro = pygame.Rect(self.x, self.y, 20, 20)
@@ -20,7 +20,14 @@ class Pajaro:
         self.inputs = 3
         self.vision = torch.tensor([[0.5,1,0.5]],dtype=torch.float)     #[0.5, 1, 0.5]
         self.ai = Ai.Ai(self.inputs)
-        #self.ai.generar_red()
+
+        if next_gen:
+            self.set_ai(bias, pesos)
+            self.genomasW, self.genomasB = self.ai.get_genomas()
+        else:
+            self.genomasW, self.genomasB = self.ai.get_genomas()
+
+        self.fitness = 0 # 3600 = 1 min aprox
 
 
     def draw(self,win):
@@ -75,9 +82,20 @@ class Pajaro:
             self.vision[0, 1] = max(0,self.distancia_mas_cercana().x - self.pajaro.center[0]) / 500
             pygame.draw.line(config.win, self.color, self.pajaro.center, (self.distancia_mas_cercana().x, self.pajaro.center[1]), 1)
 
-
-
     def decidir(self):
         self.decision = self.ai.forward(self.vision)
         if self.decision > config.__UMBRAL_DE_SALTO__:
             self.saltar()
+
+    def set_fitness(self):
+        self.fitness += 1
+
+    def set_ai(self, bias, pesos):
+        """""
+        :param bias: tensor con el bias
+        :type bias: torch.Tensor
+        :param pesos: tensor con los pesos
+        :type pesos: torch.Tensor
+        """""
+        self.ai.l1.weight = torch.nn.Parameter(pesos)
+        self.ai.l1.bias = torch.nn.Parameter(bias)

@@ -8,11 +8,19 @@ def exit_game():
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
             pygame.quit()
+            _, individuo = poblacion.condicion_de_parada()
+            if individuo is not None:
+                individuo.ai.export_to_onnx("mejor_modelo.onnx")
             exit()
 
 def generar_tuberias():
     config.tuberias.append(componentes.Tuberias(config.winW))
 
+def mostrar_info(win, generacion, vivos):
+    font = pygame.font.SysFont(None, 25)
+    texto = f"Generación: {generacion} - Vivos: {vivos}"
+    img = font.render(texto, True, (255, 255, 255))
+    win.blit(img, (10, 10))
 
 def main():
     spawn_time_tuberias = 10
@@ -32,11 +40,14 @@ def main():
             if tuberia.fuera_pantalla:
                 config.tuberias.remove(tuberia) # si una tuberia no se ve, se elimina
 
-        if not poblacion.sanExtintoLosMuTontos():
-            poblacion.update_pajaros_vivos() # dibujar los pajaros vivos
-        else :  # Parpadeo Game Over
+        if not poblacion.san_extinto_los_mu_tontos():
+            vivos = poblacion.update_pajaros_vivos() # dibujar los pajaros vivos
+        else :
             config.tuberias = []
-            poblacion.seleccion()
+            poblacion.next_gen()
+            vivos = len(poblacion.pajaros)
+
+        mostrar_info(config.win, poblacion.generacion, vivos)
 
         clock.tick(60)
         pygame.display.flip()
@@ -44,5 +55,6 @@ def main():
 if __name__ == '__main__':
     pygame.init()
     clock = pygame.time.Clock()
-    poblacion = poblacion.Poblacion(100)
+    poblacion = poblacion.Poblacion(50)
     main()
+

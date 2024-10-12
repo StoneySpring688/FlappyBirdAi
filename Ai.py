@@ -13,6 +13,18 @@ class Ai(torch.nn.Module):
 
     def get_genomas(self):
         """"
-        :return: pesos, bias
+        devuelve un tensores modificables para pesos y bias
+        :return: clon de peso y bias
+        :rtype: (torch.Tensor, torch.Tensor)
         """
-        return self.l1.weight, self.l1.bias
+        return self.l1.weight.clone(), self.l1.bias.clone()
+
+    def export_to_onnx(self, file_name):
+        """
+        Exporta el modelo a formato ONNX
+        :param file_name: Nombre del archivo ONNX
+        :type file_name: str
+        """
+        dummy_input = torch.tensor([[0.5, 1, 0.5]], dtype=torch.float)
+        torch.onnx.export(self, dummy_input, file_name, input_names=['input'], output_names=['output'])
+        print(f"Modelo guardado en formato ONNX como {file_name}")
