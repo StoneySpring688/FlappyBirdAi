@@ -7,7 +7,9 @@
 
 ### Descripción :
 Este proyecto se trata de un entorno al estilo flappy bird, que utiliza un algoritmo genetico para ir evolucionando una IA.
+
 La IA es un perceptron implementado con pytorch.
+
 Para el algoritmo genetico cada individuo tiene dos genomas :
 - los pesos
 - el bias
