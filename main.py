@@ -9,9 +9,10 @@ def exit_game():
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
             pygame.quit()
-            _, individuo = poblacion.condicion_de_parada()
-            if individuo is not None:
-                individuo.ai.export_to_onnx("mejor_modelo.onnx")
+            if guardar:
+                _, individuo = poblacion.condicion_de_parada()
+                if individuo is not None:
+                    individuo.ai.export_to_onnx("mejor_modelo.onnx")
             exit()
 
 def generar_tuberias():
@@ -56,6 +57,7 @@ def main():
 if __name__ == '__main__':
     pygame.init()
     clock = pygame.time.Clock()
-    poblacion = poblacion.Poblacion(50)
+    poblacion = poblacion.Poblacion(30)
+    guardar = False
     main()
 
